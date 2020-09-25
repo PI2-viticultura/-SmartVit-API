@@ -13,7 +13,7 @@ env:
 before_install:
   - python --version
   - pip install -U pip
-  - pip install -r ./requirements.txt
+  - pip install -r ./app/requirements.txt
 
 jobs:
   include:
