@@ -24,4 +24,6 @@ jobs:
         script: 
           - flake8
           - pytest
+          - coverage run -m pytest
+          - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
 

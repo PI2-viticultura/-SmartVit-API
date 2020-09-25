@@ -14,3 +14,4 @@ Werkzeug==1.0.1
 requests==2.24.0
 pytest==4.6.11
 flake8==3.8.3
+coverage
