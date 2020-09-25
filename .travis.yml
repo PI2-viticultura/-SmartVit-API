@@ -14,10 +14,13 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
-
+  
 jobs:
   include:
       - stage: build
         script: 
           - docker build -t smart-vit/feedback-service
+      - stage: test
+        script:
+          - pytest
 
