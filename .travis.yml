@@ -21,5 +21,7 @@ jobs:
         script: 
           - docker build -t smart-vit/feedback-service .
       - stage: test
-        script: pytest
+        script: 
+          - flake8
+          - pytest
 
