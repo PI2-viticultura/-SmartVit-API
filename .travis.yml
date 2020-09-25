@@ -1,7 +1,5 @@
 language: python
 python:
-  - 3.5
-  - 3.6
   - 3.7
 
 services:
@@ -14,6 +12,8 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
+
+script: pytest
   
 jobs:
   include:
@@ -21,6 +21,5 @@ jobs:
         script: 
           - docker build -t smart-vit/feedback-service
       - stage: test
-        script:
-          - pytest
+        script: pytest
 
