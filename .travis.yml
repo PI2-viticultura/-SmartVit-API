@@ -12,8 +12,6 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
-  - sudo apt-get install jq
-  - curl -LSs "$(curl -LSs https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({name, browser_download_url} | select(.name | endswith(".jar"))) | .[0].browser_download_url')" -o codacy-coverage-reporter-assembly.jar
 
 script: pytest
   
@@ -26,8 +24,7 @@ jobs:
         script: 
           - flake8
           - coverage run -m pytest
-
-
+          - coverage xml
 after_success:
-  - java -jar codacy-coverage-reporter-assembly.jar report -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+  - python-codacy-coverage -r coverage.xml
 
