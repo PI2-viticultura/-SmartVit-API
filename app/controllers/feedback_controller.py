@@ -3,7 +3,7 @@ from models.feedback import MongoDB
 def save_feedback_request(request):
     fields = ['title', 'message_body']
 
-    if not all(filed in request.keys() for field in fields):
+    if not all(field in request.keys() for field in fields):
         return { "Erro": "Por gentileza, preencha todos os campos para ser enviado o feedback"}, 400
     
     if not request["title"]:

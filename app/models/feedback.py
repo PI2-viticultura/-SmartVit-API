@@ -31,7 +31,7 @@ class MongoDB():
     # Operações 
 
     def insert_one(self, body):
-        print(brody)
+        print(body)
         try:
             collection = self.get_collection()
             collection.insert_one(body)
