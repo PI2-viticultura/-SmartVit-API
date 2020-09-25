@@ -17,7 +17,7 @@ services:
 
 
     feedback-service:
-        build: ./app
+        build: .
         ports: 
           - 8000:8000
         container_name: feedback-service
