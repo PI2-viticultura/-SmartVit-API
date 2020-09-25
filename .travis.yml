@@ -19,7 +19,7 @@ jobs:
   include:
       - stage: build
         script: 
-          - docker build -t smart-vit/feedback-service
+          - docker build -t smart-vit/feedback-service .
       - stage: test
         script: pytest
 
