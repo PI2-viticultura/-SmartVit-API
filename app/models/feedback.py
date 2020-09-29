@@ -2,9 +2,9 @@ from settings import load_database_params
 from utils.constants import DATABASE_CONFIG
 import pymongo
 
-
 class MongoDB():
     def __init__(self):
+        """Constructor to model class."""
         self.params = load_database_params()
         try:
             self.client = pymongo.MongoClient(**self.params, serverSelectionTimeoutMS=10)
@@ -28,10 +28,7 @@ class MongoDB():
         collection = db['mensagens']
         return collection
     
-    # Operações 
-
     def insert_one(self, body):
-        print(body)
         try:
             collection = self.get_collection()
             collection.insert_one(body)
