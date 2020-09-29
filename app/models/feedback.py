@@ -7,11 +7,11 @@ class MongoDB():
         """Constructor to model class."""
         self.params = load_database_params()
         try:
-            self.client = pymongo.MongoClient(**self.params, 
-                                                serverSelectionTimeoutMS=10)
+            self.client = pymongo.MongoClient(**self.params,
+                                              serverSelectionTimeoutMS=10)
         except Exception as err:
             print(f'Erro ao conectar no banco de dados: {err}')
-    
+
     def test_connection(self):
         try:
             self.client.server_info()
@@ -27,7 +27,7 @@ class MongoDB():
         db = self.client['smart-dev']
         collection = db['mensagens']
         return collection
-    
+
     def insert_one(self, body):
         try:
             collection = self.get_collection()
@@ -36,7 +36,7 @@ class MongoDB():
         except Exception as err:
             print(f'Erro ao inserir no banco de dados: {err}')
             return False
-        
+
     def update_one(self, document, body):
         try:
             collection = self.get_collection()
@@ -57,7 +57,7 @@ class MongoDB():
                 print(f'mensagem {identifier} removida com sucesso')
             else:
                 print(f'Erro ao remover a mensagem {identifier}:'
-                             ' nenhuma mensagem encontrada para o id')
+                      'nenhuma mensagem encontrada para o id')
         except Exception as err:
             print(f'Erro ao deletar no banco de dados: {err}')
 
@@ -65,4 +65,3 @@ class MongoDB():
         collection = self.get_collection()
         document = collection.find_one({"id": identifier})
         return document
-        
