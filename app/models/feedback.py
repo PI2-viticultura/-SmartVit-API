@@ -1,14 +1,14 @@
 from settings import load_database_params
-from utils.constants import DATABASE_CONFIG
 import pymongo
+
 
 class MongoDB():
     def __init__(self):
         """Constructor to model class."""
         self.params = load_database_params()
         try:
-            self.client = pymongo.MongoClient(**self.params, serverSelectionTimeoutMS=10)
-
+            self.client = pymongo.MongoClient(**self.params, 
+                                                serverSelectionTimeoutMS=10)
         except Exception as err:
             print(f'Erro ao conectar no banco de dados: {err}')
     
@@ -40,6 +40,7 @@ class MongoDB():
     def update_one(self, document, body):
         try:
             collection = self.get_collection()
+
             collection.update_one(
                 {"id": body["id"]},
                 {"$set": {body}}
@@ -64,3 +65,4 @@ class MongoDB():
         collection = self.get_collection()
         document = collection.find_one({"id": identifier})
         return document
+        

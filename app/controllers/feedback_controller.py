@@ -1,12 +1,12 @@
 from models.feedback import MongoDB
 
+
 def save_feedback_request(request):
     fields = ['title', 'message_body']
 
     if not all(field in request.keys() for field in fields):
         return { 
-            
-            "erro": "Por gentileza, preencha todos os campos para ser enviado o feedback"
+            "erro": "Preencha todos os campos para ser enviado o feedback"
             }, 400
     
     if not request["title"]:
