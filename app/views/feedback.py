@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_cors import CORS
-from extensions import db
 import controllers.feedback_controller as controller
-import requests
 
 app = Blueprint('feedback', __name__)
 CORS(app)
+
 
 @app.route("/feedback", methods=["POST"])
 def feedback():

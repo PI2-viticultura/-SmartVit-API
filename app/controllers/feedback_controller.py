@@ -20,7 +20,6 @@ def save_feedback_request(request):
             }, 400
 
     db = MongoDB()
-
     connection_is_alive = db.test_connection()
     if connection_is_alive:
         if(db.insert_one(request)):
