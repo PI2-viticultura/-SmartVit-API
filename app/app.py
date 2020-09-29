@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
-from controller.hello import app as hello
+from views.feedback import app as feedback
 
 app = Flask(__name__)
-app.register_blueprint(hello)
+app.register_blueprint(feedback)
 CORS(app, automatic_options=True)
 
 
