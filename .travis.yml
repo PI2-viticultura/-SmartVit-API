@@ -13,6 +13,10 @@ before_install:
   - pip install -U pip
   - pip install pytest
 
+before_deploy:
+  - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  - heroku --version
+
 script: pytest
   
 jobs:
@@ -20,11 +24,33 @@ jobs:
       - stage: build
         script: 
           - docker build -t smart-vit/feedback-service .
+          - docker-compose build
+          - docker ps -a
       - stage: test
         script: 
           - flake8
           - coverage run -m pytest
           - coverage xml
+
+deploy:
+  - provider: staging
+    skip_cleanup: true
+    script:
+      - export MONGOPASSWORD=${MONGOPASSWORD}
+      - export DBNAME=${DBNAMESTG}
+      - export ENVIRONMENT=${ENVSTG}
+    on:
+      branch: devel
+  - provider: production
+    skip_cleanup: true
+    script:
+      - export MONGOPASSWORD=${MONGOPASSWORD}
+      - export DBNAME=${DBNAMEPRD}
+      - export ENVIRONMENT=${ENVPRD}
+    on:
+      branch: master
+
+
 after_success:
   - python-codacy-coverage -r coverage.xml
 
