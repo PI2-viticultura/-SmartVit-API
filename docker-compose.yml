@@ -22,5 +22,9 @@ services:
           - 8000:8000
         container_name: feedback-service
         restart: always
+        environment:
+          mongoPassword: ${MONGOPASSWORD}
+          dbname: ${DBNAME}
+          env: ${ENVIRONMENT}
         volumes: 
           - './app:/app'
