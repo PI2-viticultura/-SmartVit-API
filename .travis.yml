@@ -12,9 +12,6 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
-  - export MONGOPASSWORD=${MONGOPASSWORD}
-  - export DBNAME=${DBNAMEDEV}
-  - export ENVIRONMENT=${ENVDEV}
 
 before_deploy:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
@@ -43,7 +40,7 @@ jobs:
         - docker images -a
         - bash docker_push.sh
     - stage: deploy-stg
-      if: branch = master
+      if: branch = feature/cd_configuration
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
         - export DBNAME=${DBNAMESTG}
