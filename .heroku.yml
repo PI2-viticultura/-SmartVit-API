@@ -1,5 +1,9 @@
 build:
-    docker:
-      web: Dockerfile
+  docker:
+    web: Dockerfile
+    environment:
+      mongoPassword: ${MONGOPASSWORD}
+      dbname: ${DBNAME}
+      env: ${ENVIRONMENT}
 run:
-    web: cd app/ && gunicorn app:app
+  web: cd app/ && gunicorn app:app
