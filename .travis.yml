@@ -16,29 +16,45 @@ before_install:
 before_deploy:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
   - heroku --version
+  - export MONGOPASSWORD=${MONGOPASSWORD}
+  - export DBNAME=${DBNAMEDEV}
+  - export ENVIRONMENT=${ENVDEV}
 
 script: pytest
-  
+
 jobs:
   include:
-      - stage: build
-        script: 
-          - docker build -t smart-vit/feedback-service .
-          - docker-compose build
-          - docker ps -a
-      - stage: test
-        script: 
-          - flake8
-          - coverage run -m pytest
-          - coverage xml
+    - stage: build
+      script:
+        - docker build -t smart-vit/feedback-service .
+        - docker ps -a
+    - stage: test
+      script:
+        - flake8
+        - coverage run -m pytest
+        - coverage xml
 
 deploy:
+  - provider: development
+    skip_cleanup: true
+    script:
+      - export MONGOPASSWORD=${MONGOPASSWORD}
+      - export DBNAME=${DBNAMEDEV}
+      - export ENVIRONMENT=${ENVDEV}
+      - docker-compose build
+      - bash docker_push
+    on:
+      branch: feature/cd_configuration
+
   - provider: staging
     skip_cleanup: true
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
       - export DBNAME=${DBNAMESTG}
       - export ENVIRONMENT=${ENVSTG}
+      - docker-compose build
+      - bash docker_push
+
     on:
       branch: devel
   - provider: production
@@ -47,10 +63,11 @@ deploy:
       - export MONGOPASSWORD=${MONGOPASSWORD}
       - export DBNAME=${DBNAMEPRD}
       - export ENVIRONMENT=${ENVPRD}
+      - docker-compose build
+      - bash docker_push
+
     on:
       branch: master
 
-
 after_success:
   - python-codacy-coverage -r coverage.xml
-
