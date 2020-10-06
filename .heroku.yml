@@ -7,3 +7,4 @@ build:
       ENVIRONMENT: ${ENVIRONMENT}
 run:
   web: cd app/ && gunicorn app:app
+
