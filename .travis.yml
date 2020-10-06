@@ -12,13 +12,13 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
+  - export MONGOPASSWORD=${MONGOPASSWORD}
+  - export DBNAME=${DBNAMEDEV}
+  - export ENVIRONMENT=${ENVDEV}
 
 before_deploy:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
   - heroku --version
-  - export MONGOPASSWORD=${MONGOPASSWORD}
-  - export DBNAME=${DBNAMEDEV}
-  - export ENVIRONMENT=${ENVDEV}
 
 script: pytest
 
@@ -33,41 +33,31 @@ jobs:
         - flake8
         - coverage run -m pytest
         - coverage xml
-
-deploy:
-  - provider: bash deploy_file.sh
-    skip_cleanup: true
-    script:
-      - export MONGOPASSWORD=${MONGOPASSWORD}
-      - export DBNAME=${DBNAMEDEV}
-      - export ENVIRONMENT=${ENVDEV}
-      - docker-compose build
-      - bash docker_push
-    on:
-      branch: feature/cd_configuration
-
-  - provider: bash deploy_file.sh
-    skip_cleanup: true
-    script:
-      - export MONGOPASSWORD=${MONGOPASSWORD}
-      - export DBNAME=${DBNAMESTG}
-      - export ENVIRONMENT=${ENVSTG}
-      - docker-compose build
-      - bash docker_push
-
-    on:
-      branch: devel
-  - provider: bash deploy_file.sh
-    skip_cleanup: true
-    script:
-      - export MONGOPASSWORD=${MONGOPASSWORD}
-      - export DBNAME=${DBNAMEPRD}
-      - export ENVIRONMENT=${ENVPRD}
-      - docker-compose build
-      - bash docker_push
-
-    on:
-      branch: master
+    - stage: deploy-dev
+      script:
+        - export MONGOPASSWORD=${MONGOPASSWORD}
+        - export DBNAME=${DBNAMEDEV}
+        - export ENVIRONMENT=${ENVDEV}
+        - docker-compose build
+        - bash docker_push
+      on:
+        branch: feature/cd_configuration
+    - stage: deploy-stg
+      script:
+        - export MONGOPASSWORD=${MONGOPASSWORD}
+        - export DBNAME=${DBNAMESTG}
+        - export ENVIRONMENT=${ENVSTG}
+        - docker-compose build
+        - bash docker_push
+      on:
+        branch: devel
+    - stage: deploy-prd
+      script:
+        - export MONGOPASSWORD=${MONGOPASSWORD}
+        - export DBNAME=${DBNAMEPRD}
+        - export ENVIRONMENT=${ENVPRD}
+        - docker-compose build
+        - bash docker_push
 
 after_success:
   - python-codacy-coverage -r coverage.xml
