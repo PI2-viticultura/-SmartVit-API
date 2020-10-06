@@ -12,6 +12,7 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install pytest
+  - export ENVIRONMENT=developing
 
 before_deploy:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
