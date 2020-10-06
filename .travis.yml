@@ -39,7 +39,7 @@ jobs:
         - export DBNAME=${DBNAMEDEV}
         - export ENVIRONMENT=${ENVDEV}
         - docker-compose build
-        - bash docker_push
+        - bash docker_push.sh
       on:
         branch: feature/cd_configuration
     - stage: deploy-stg
@@ -48,7 +48,7 @@ jobs:
         - export DBNAME=${DBNAMESTG}
         - export ENVIRONMENT=${ENVSTG}
         - docker-compose build
-        - bash docker_push
+        - bash docker_push.sh
       on:
         branch: devel
     - stage: deploy-prd
@@ -57,7 +57,7 @@ jobs:
         - export DBNAME=${DBNAMEPRD}
         - export ENVIRONMENT=${ENVPRD}
         - docker-compose build
-        - bash docker_push
+        - bash docker_push.sh
 
 after_success:
   - python-codacy-coverage -r coverage.xml
