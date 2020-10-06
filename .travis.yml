@@ -34,6 +34,7 @@ jobs:
         - coverage run -m pytest
         - coverage xml
     - stage: deploy-dev
+      if: branch = devel
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
         - export DBNAME=${DBNAMESTG}
@@ -41,18 +42,16 @@ jobs:
         - docker-compose build
         - docker images -a
         - bash docker_push.sh
-      on:
-        branch: feature/cd_configuration
     - stage: deploy-stg
+      if: branch = master
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
         - export DBNAME=${DBNAMESTG}
         - export ENVIRONMENT=${ENVSTG}
         - docker-compose build
         - bash docker_push.sh
-      on:
-        branch: devel
     - stage: deploy-prd
+      if: branch = master
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
         - export DBNAME=${DBNAMEPRD}
