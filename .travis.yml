@@ -36,8 +36,8 @@ jobs:
     - stage: deploy-dev
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
-        - export DBNAME=${DBNAMEDEV}
-        - export ENVIRONMENT=${ENVDEV}
+        - export DBNAME=${DBNAMESTG}
+        - export ENVIRONMENT=${ENVSTG}
         - docker-compose build
         - docker images -a
         - bash docker_push.sh
