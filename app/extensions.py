@@ -1,9 +1,9 @@
 from flask_pymongo import MongoClient
 import os
 
-password = os.environ["mongoPassword"]
-dbname = os.environ["dbname"]
-env = os.environ["env"]
+password = os.environ["MONGOPASSWORD"]
+dbname = os.environ["DBNAME"]
+env = os.environ["ENVIRONMENT"]
 
 client = MongoClient(
     "mongodb+srv://smartAdmin:"

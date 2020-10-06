@@ -7,7 +7,7 @@ from extensions import client
 class MongoDB():
     def __init__(self):
         """Constructor to model class."""
-        if(os.environ['env'] != 'developing'):
+        if(os.environ['ENVIRONMENT'] != 'developing'):
             self.client = client
         else:
             self.params = load_database_params()
