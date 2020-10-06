@@ -13,6 +13,8 @@ before_install:
   - pip install -U pip
   - pip install pytest
   - export ENVIRONMENT=developing
+  - export MONGOPASSWORD=none
+  - export DBNAME=none
 
 before_deploy:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
