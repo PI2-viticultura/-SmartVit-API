@@ -35,7 +35,7 @@ jobs:
         - coverage xml
 
 deploy:
-  - provider: development
+  - provider: bash deploy_file.sh
     skip_cleanup: true
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
@@ -46,7 +46,7 @@ deploy:
     on:
       branch: feature/cd_configuration
 
-  - provider: staging
+  - provider: bash deploy_file.sh
     skip_cleanup: true
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
@@ -57,7 +57,7 @@ deploy:
 
     on:
       branch: devel
-  - provider: production
+  - provider: bash deploy_file.sh
     skip_cleanup: true
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
