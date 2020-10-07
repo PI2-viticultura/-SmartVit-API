@@ -41,10 +41,10 @@ after_deploy:
   - docker-compose build
   - docker images -a
   - bash docker_push.sh
-  - heroku container:login
-  - heroku stack:set container
-  - heroku container:push feedback-service
-  - heroku container:release feedback-service
+  - heroku auth:token
+  - heroku stack:set container --app feedback-service-stg
+  - heroku container:push feedback-service --app feedback-service-stg
+  - heroku container:release feedback-service --app feedback-service-stg
 
 after_success:
   - python-codacy-coverage -r coverage.xml
