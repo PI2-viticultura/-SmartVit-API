@@ -35,7 +35,9 @@ jobs:
 
 deploy:
   - provider: heroku
-    api_key: ${API_HERO}
+    api_key:
+      secure: ${API_HERO}
+    app: feedback-service-stg
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
       - export DBNAME=${DBNAMESTG}
