@@ -36,7 +36,6 @@ jobs:
 deploy:
   - provider: heroku
     api_key: ${API_HERO}
-    edge: true
     script:
       - export MONGOPASSWORD=${MONGOPASSWORD}
       - export DBNAME=${DBNAMESTG}
