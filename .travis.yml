@@ -32,19 +32,7 @@ deploy:
       secure: c85vRv/DVpSeMckLH76BR8HlJCqwBA0CKtLYMS5EEA1h79ehbByOHEdUoEcFQkG3nnv/hUJ7Z0EuAgJUa4zfP/LVz2ZYOPAiDjad94ZN79GpRnklNR4nzeKLjXKqT0YddCUw5odJNGRzfU6oIn2EwHc1TUIDog6sew1/GB/tcL3p8PU0W4gyN2snJuH5y4ggrmo//tDow6axUytEpJqam1r4zlU4dGuvx0T5i1XOPopG/kYUkKRS6U/MkU+Qy1Uopk3NywQTjPud+zRUSeO9unsV/7FlkHQ/KZV0gnnzWU6n4KKbNG+5ytQOkCt/SYMNEciFSHgRkH3NxuuxZRQlQiODHQogujgBSytrN6PW/tcr/8bSXdjuO0++fqkfAZaisyyfNoX8PC3Hr1XYBGsETMAz9wKQYSwFPEsQGuB/TPImnCVlHBzy0aKtRbn+tfEI3utxIChVITMFOaaFPYNiq7qwOv6UpH5wI01VVfkg0MU4TyH1QMZnyKFaxLVS5rZDS0NIHCBC7RRO6XQt3OTLfr7+oDgAKZ+2zuJ+0DaymqJRMU4+BEdBufaDe/ofpwSCXpVhficvu/whFcZvtk2PNN4fNz5CCnVZZkjMeMRQWxJbcDkP4z01vtKxrFAOIva66LLKA/shwp7GeD13VxrY4i1TUMxB3dpR0j0zlFsmeX0=
     app: feedback-service-stg
     on:
-      branch: feature/cd_configuration
-
-after_deploy:
-  - export MONGOPASSWORD=${MONGOPASSWORD}
-  - export DBNAME=${DBNAMESTG}
-  - export ENVIRONMENT=${ENVSTG}
-  - docker-compose build
-  - docker images -a
-  - bash docker_push.sh
-  - heroku auth:token
-  - heroku stack:set container --app feedback-service-stg
-  - heroku container:push feedback-service --app feedback-service-stg
-  - heroku container:release feedback-service --app feedback-service-stg
+      branch: master
 
 after_success:
   - python-codacy-coverage -r coverage.xml
