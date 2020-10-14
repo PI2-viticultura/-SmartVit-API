@@ -1,6 +1,6 @@
 from settings import load_database_params
 import pymongo
-
+import os
 
 class MongoDB():
     def __init__(self):
