@@ -1,4 +1,5 @@
 from settings import load_database_params
+from extensions import client
 import pymongo
 import os
 
