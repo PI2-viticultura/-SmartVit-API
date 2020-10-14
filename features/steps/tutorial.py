@@ -1,4 +1,4 @@
-from behave import *
+from behave import given, when, then
 
 @given('behave instalado')
 def step_impl(context):
@@ -11,3 +11,4 @@ def step_impl(context):
 @then('behave conseguirá testar')
 def step_impl(context):
     assert context.failed is False
+ 
