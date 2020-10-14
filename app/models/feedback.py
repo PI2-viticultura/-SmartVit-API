@@ -28,7 +28,7 @@ class MongoDB():
 
     def get_collection(self):
         db = self.client[os.getenv("DBNAME", "smart-dev")]
-        collection = db['mensagens']
+        collection = db['feedbacks']
         return collection
 
     def insert_one(self, body):
